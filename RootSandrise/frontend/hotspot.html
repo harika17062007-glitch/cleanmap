@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Waste Hotspots | CleanMap</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<style>
+#map { height: 90vh; }
+</style>
+</head>
+<body>
+
+<h2 style="text-align:center;color:#2e7d32;">Illegal Dumping Hotspots</h2>
+<div id="map"></div>
+
+<script>
+const map = L.map('map').setView([17.385, 78.4867], 12);
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+// Dummy hotspot markers
+L.marker([17.39, 78.48]).addTo(map).bindPopup("Plastic Waste Dump");
+L.marker([17.37, 78.50]).addTo(map).bindPopup("Construction Waste");
+L.marker([17.40, 78.47]).addTo(map).bindPopup("Organic Waste");
+</script>
+
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Admin Dashboard | CleanMap</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<!-- Leaflet CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
+body { background: linear-gradient(135deg, #11998e, #38ef7d); min-height:100vh; }
+
+header { background:#fff; padding:15px 50px; display:flex; justify-content:space-between; align-items:center; box-shadow:0 4px 10px rgba(0,0,0,0.1);}
+header h1 { color:#1b5e20; }
+nav a { margin-left:20px; text-decoration:none; color:#333; font-weight:500; }
+nav a:hover { color:#1b5e20; }
+
+.container { max-width:1200px; margin:35px auto; background:#fff; padding:30px; border-radius:18px; box-shadow:0 15px 30px rgba(0,0,0,0.2);}
+.container h2 { color:#1b5e20; margin-bottom:10px; }
+.container p { color:#555; margin-bottom:25px; }
+
+.report { border:1px solid #ddd; border-radius:15px; padding:20px; margin-bottom:20px; display:grid; grid-template-columns:1fr 2fr 1fr; gap:20px; }
+.report img { width:100%; border-radius:10px; }
+.report-details h4 { color:#1b5e20; margin-bottom:8px; }
+.report-details p { font-size:0.9rem; margin-bottom:5px; }
+.status { display:inline-block; padding:6px 14px; border-radius:20px; color:white; font-size:0.8rem; margin-bottom:10px; }
+.pending { background:#f9a825; } .verified { background:#2e7d32; } .cleaned { background:#1565c0; }
+
+.actions button { display:block; width:100%; margin-bottom:10px; padding:10px; border:none; border-radius:20px; cursor:pointer; font-size:0.85rem; }
+.verify-btn { background:#2e7d32; color:#fff; } .clean-btn { background:#1565c0; color:#fff; }
+.verify-btn:hover { background:#1b5e20; } .clean-btn:hover { background:#0d47a1; }
+
+#map { height:400px; border-radius:15px; margin-top:20px; }
+
+footer { background:#1b5e20; color:white; text-align:center; padding:15px; margin-top:40px; font-size:0.85rem; }
+@media (max-width:900px) { .report { grid-template-columns:1fr; } }
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>CleanMap Admin</h1>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="analytics.html">Analytics</a>
+        <a href="login.html">Logout</a>
+    </nav>
+</header>
+
+<div class="container">
+    <h2>Waste Reports with Map</h2>
+    <p>Click a report to see its location on the map. Repeated reports automatically form hotspots.</p>
+
+    <!-- REPORTS -->
+    <div id="reports"></div>
+
+    <!-- MAP -->
+    <div id="map"></div>
+</div>
+
+<footer>
+    © 2026 CleanMap | Admin Waste Monitoring System
+</footer>
+
+<script>
+// Sample Reports Data (latitude & longitude included)
+const reports = [
+    {id:1, title:"Plastic Waste Dump", location:"Sector 5 Main Road", desc:"Large plastic dumped near road", date:"15 Feb 2026", lat:17.385, lng:78.486, status:"pending", image:"https://via.placeholder.com/300x200"},
+    {id:2, title:"Construction Debris", location:"Near Bus Stop", desc:"Construction waste blocking sidewalk", date:"12 Feb 2026", lat:17.389, lng:78.489, status:"verified", image:"https://via.placeholder.com/300x200"},
+    {id:3, title:"Plastic Waste Dump", location:"Sector 5 Main Road", desc:"Repeated dumping of plastic bags", date:"16 Feb 2026", lat:17.385, lng:78.486, status:"pending", image:"https://via.placeholder.com/300x200"},
+    {id:4, title:"Organic Waste", location:"Lake View Area", desc:"Organic garbage near lake", date:"14 Feb 2026", lat:17.390, lng:78.480, status:"cleaned", image:"https://via.placeholder.com/300x200"},
+];
+
+// Generate Reports in HTML
+const reportsContainer = document.getElementById("reports");
+reports.forEach(report => {
+    const div = document.createElement("div");
+    div.className = "report";
+    div.innerHTML = `
+        <img src="${report.image}" alt="Waste Image">
+        <div class="report-details">
+            <h4>${report.title}</h4>
+            <p><strong>Location:</strong> ${report.location}</p>
+            <p><strong>Reported On:</strong> ${report.date}</p>
+            <p><strong>Description:</strong> ${report.desc}</p>
+            <span class="status ${report.status}" id="status${report.id}">${capitalize(report.status)}</span>
+        </div>
+        <div class="actions">
+            <button onclick="showOnMap(${report.lat}, ${report.lng})">View on Map</button>
+            <button class="verify-btn" onclick="verify(${report.id}, this)">Verify</button>
+        </div>
+    `;
+    reportsContainer.appendChild(div);
+});
+
+// Leaflet Map
+const map = L.map('map').setView([17.385, 78.486], 13);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+// Auto Hotspot Detection (clusters multiple reports at same location)
+const hotspots = {};
+reports.forEach(r => {
+    const key = r.lat + "," + r.lng;
+    if (!hotspots[key]) hotspots[key] = {lat:r.lat,lng:r.lng,count:0};
+    hotspots[key].count++;
+});
+
+// Place markers with popup showing number of reports (hotspot)
+for (const key in hotspots) {
+    const h = hotspots[key];
+    L.marker([h.lat,h.lng]).addTo(map)
+     .bindPopup(`Reports: ${h.count}`)
+     .openPopup();
+}
+
+// Functions
+function showOnMap(lat,lng){
+    map.setView([lat,lng], 16);
+}
+
+function verify(id, btn){
+    const statusSpan = document.getElementById("status"+id);
+    statusSpan.className = "status verified";
+    statusSpan.innerText = "Verified";
+    btn.innerText = "Mark Cleaned";
+    btn.className = "clean-btn";
+    btn.onclick = function(){ clean(id, btn); };
+}
+
+function clean(id, btn){
+    const statusSpan = document.getElementById("status"+id);
+    statusSpan.className = "status cleaned";
+    statusSpan.innerText = "Cleaned";
+    btn.remove();
+}
+
+function capitalize(s){ return s.charAt(0).toUpperCase() + s.slice(1); }
+</script>
+
+</body>
+</html>

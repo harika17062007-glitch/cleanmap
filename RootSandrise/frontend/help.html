@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Help | CleanMap</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #a8e063, #56ab2f);
+            color: #333;
+        }
+
+        /* NAVBAR */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            color: #2e7d32;
+        }
+
+        nav a {
+            text-decoration: none;
+            margin-left: 20px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            color: #2e7d32;
+        }
+
+        /* CONTENT */
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            background: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .container h2 {
+            color: #2e7d32;
+            margin-bottom: 15px;
+        }
+
+        .container p {
+            margin-bottom: 20px;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .faq {
+            margin-top: 30px;
+        }
+
+        .faq-item {
+            margin-bottom: 20px;
+        }
+
+        .faq-item h4 {
+            color: #2e7d32;
+            margin-bottom: 8px;
+        }
+
+        .steps {
+            margin-top: 20px;
+        }
+
+        .steps li {
+            margin-bottom: 10px;
+        }
+
+        /* FOOTER */
+        footer {
+            background: #2e7d32;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            margin-top: 40px;
+        }
+
+        footer p {
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <header>
+        <h1>CleanMap</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="help.html">Help</a>
+            <a href="contact.html">Contact</a>
+            <a href="login.html">Login</a>
+        </nav>
+    </header>
+
+    <!-- HELP CONTENT -->
+    <div class="container">
+        <h2>Help & Support</h2>
+        <p>
+            CleanMap is a community-driven platform that helps identify and reduce illegal waste dumping.
+            This page guides you on how to use the platform effectively.
+        </p>
+
+        <h2>How to Use CleanMap</h2>
+        <ol class="steps">
+            <li>Create an account or login to CleanMap.</li>
+            <li>Navigate to your user dashboard.</li>
+            <li>Click on “Report Waste”.</li>
+            <li>Upload a photo of the waste.</li>
+            <li>Enter location details accurately.</li>
+            <li>Submit the report.</li>
+        </ol>
+
+        <div class="faq">
+            <h2>Frequently Asked Questions</h2>
+
+            <div class="faq-item">
+                <h4>Who can report illegal dumping?</h4>
+                <p>Any registered user can report waste dumping incidents in their neighborhood.</p>
+            </div>
+
+            <div class="faq-item">
+                <h4>Is my identity visible to others?</h4>
+                <p>No. User information is kept confidential and is visible only to administrators.</p>
+            </div>
+
+            <div class="faq-item">
+                <h4>How are reports verified?</h4>
+                <p>Reports are reviewed by NGOs or administrators before being marked as verified.</p>
+            </div>
+
+            <div class="faq-item">
+                <h4>What happens after reporting?</h4>
+                <p>Once verified, the report appears on the map and authorities are notified for cleanup.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>© 2026 CleanMap | Environment & Sustainability Hackathon</p>
+    </footer>
+
+</body>
+</html>

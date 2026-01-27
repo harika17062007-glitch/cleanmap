@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Analytics | CleanMap</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<h2 style="text-align:center;">Waste Analytics</h2>
+
+<canvas id="wasteChart" width="400" height="200"></canvas>
+
+<script>
+new Chart(document.getElementById("wasteChart"), {
+    type: 'bar',
+    data: {
+        labels: ['Plastic', 'Organic', 'Construction', 'E-Waste'],
+        datasets: [{
+            label: 'Reported Waste',
+            data: [45, 30, 20, 10],
+        }]
+    }
+});
+</script>
+
+</body>
+</html>

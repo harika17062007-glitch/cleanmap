@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Dashboard | CleanMap</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #a8e063, #56ab2f);
+            color: #333;
+        }
+
+        /* NAVBAR */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            color: #2e7d32;
+        }
+
+        nav a {
+            text-decoration: none;
+            margin-left: 20px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            color: #2e7d32;
+        }
+
+        /* DASHBOARD CONTAINER */
+        .dashboard {
+            max-width: 1100px;
+            margin: 40px auto;
+            background: #fff;
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .dashboard h2 {
+            color: #2e7d32;
+            margin-bottom: 10px;
+        }
+
+        .dashboard p {
+            color: #555;
+            margin-bottom: 25px;
+        }
+
+        /* ACTION BUTTONS */
+        .actions {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        .actions button {
+            padding: 12px 22px;
+            border: none;
+            border-radius: 25px;
+            background: #2e7d32;
+            color: #fff;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .actions button:hover {
+            background: #1b5e20;
+        }
+
+        /* REPORTS TABLE */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        table th, table td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+            font-size: 0.9rem;
+        }
+
+        table th {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .status {
+            padding: 5px 12px;
+            border-radius: 15px;
+            color: #fff;
+            font-size: 0.8rem;
+        }
+
+        .pending {
+            background: #f9a825;
+        }
+
+        .verified {
+            background: #2e7d32;
+        }
+
+        .cleaned {
+            background: #1565c0;
+        }
+
+        /* FOOTER */
+        footer {
+            background: #2e7d32;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            margin-top: 40px;
+        }
+
+        footer p {
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            table {
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <header>
+        <h1>CleanMap</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="help.html">Help</a>
+            <a href="contact.html">Contact</a>
+            <a href="login.html">Logout</a>
+        </nav>
+    </header>
+
+    <!-- DASHBOARD -->
+    <div class="dashboard">
+        <h2>Welcome, User 👋</h2>
+        <p>Track your waste reports and help keep your neighborhood clean.</p>
+
+        <div class="actions">
+            <button onclick="location.href='report-waste.html'">🚮 Report Waste</button>
+            <button onclick="location.href='hotspot.html'">🗺️ View Hotspots</button>
+        </div>
+
+        <h3>Your Submitted Reports</h3>
+
+        <table>
+            <tr>
+                <th>Date</th>
+                <th>Location</th>
+                <th>Waste Type</th>
+                <th>Status</th>
+            </tr>
+            <tr>
+                <td>12 Feb 2026</td>
+                <td>Main Road, Sector 4</td>
+                <td>Plastic</td>
+                <td><span class="status pending">Pending</span></td>
+            </tr>
+            <tr>
+                <td>08 Feb 2026</td>
+                <td>Near Bus Stop</td>
+                <td>Construction</td>
+                <td><span class="status verified">Verified</span></td>
+            </tr>
+            <tr>
+                <td>02 Feb 2026</td>
+                <td>Lake View Area</td>
+                <td>Organic</td>
+                <td><span class="status cleaned">Cleaned</span></td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>© 2026 CleanMap | Environment & Sustainability Hackathon</p>
+    </footer>
+
+</body>
+</html>
